@@ -45,7 +45,21 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 - [x] Movie list
 - [x] Movie detail
 - [x] Comment form
-- [ ] Movie service
-- [ ] Search service
+- [x] Movie service
+- [x] Search service
 - [ ] Comment service
-- [ ] Promo/Landing page service
+- [ ] Promo/Landing page service (random movie search)
+- [ ] Suggestions (uses random)
+- [ ] OPTIONAL: User profile
+
+## User Stories
+
+```gherkin
+Feature: Movies
+Scenario: A a visitor is browsing GMDB.
+When a visitor views the homepage movie carousel
+Then the carousel should auto scroll from right to left
+
+
+
+```

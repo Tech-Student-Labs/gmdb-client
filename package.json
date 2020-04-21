@@ -4,7 +4,7 @@
   "author": "Kay Hudson, Rob Wing",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve --proxy-config proxy.conf.json",
+    "start": "ng serve",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
@@ -23,7 +23,6 @@
     "body-parser": "^1.19.0",
     "bootstrap": "^4.3.1",
     "cors": "^2.8.5",
-    "express": "^4.17.1",
     "express-http-proxy": "^1.6.0",
     "jquery": "^3.4.1",
     "popper.js": "^1.15.0",
