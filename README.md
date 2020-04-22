@@ -28,12 +28,12 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 **Node Instructions**
 1. Download or clone this repo.
 2. Inside the gmdb-ui folder, run: `npm install`
-3. Run the server: `ng serve -o` or `npm run start`
+3. Run the server: `npm start`
 
 
 ## Deployment
 
-1. Run: `ng build --prod`
+1. Run: `npm build`
 2. Upload the `dist/gmdb-ui/` folder to your server
 
 
@@ -47,10 +47,12 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 - [x] Comment form
 - [x] Movie service
 - [x] Search service
-- [ ] Comment service
+- [x] Comment service
+- [ ] Star ratings
 - [ ] Promo/Landing page service (random movie search)
 - [ ] Suggestions (uses random)
 - [ ] OPTIONAL: User profile
+- [ ] Fix search (currently can't search from a results page)
 
 ## User Stories
 

@@ -30,8 +30,12 @@ export class MovieService {
     return this.http.get(this.apiUrl + id, httpOptions);
   }
 
-  search(query) {
+  search(query: string) {
     const results = this.movies.filter((movie) => movie.title.toLowerCase().includes(query));
     return of(results);
+  }
+
+  getRandom(quantity: number = 5): Observable<any> {
+    return this.http.get(this.apiUrl + `/rand?quantity=${quantity}`, httpOptions);
   }
 }
