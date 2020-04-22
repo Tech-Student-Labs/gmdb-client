@@ -2,7 +2,7 @@
 
 {
   "/movie-svc": {
-    "target": "http://gmdb-dev1.robwing.com:8000",
+    "target": "http://gmdb-dev.robwing.com:8000",
     "secure": false,
     "changeOrigin": true,
     "logLevel": "debug",
@@ -11,7 +11,7 @@
     }
   },
   "/user-svc": {
-    "target": "http://gmdb-dev1.robwing.com:8000",
+    "target": "http://gmdb-dev.robwing.com:8000",
     "secure": false,
     "changeOrigin": true,
     "logLevel": "debug",
