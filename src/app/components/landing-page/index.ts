@@ -10,7 +10,6 @@ import {MovieService} from '../../services/movie.service';
   animations: [fadeInAnimation]
 })
 export class LandingPageComponent implements OnInit {
-  // TODO: create a selection of popular movies for carousel?
   popularMovies: Movie[];
 
   constructor(private movieService: MovieService) { }
@@ -20,6 +19,7 @@ export class LandingPageComponent implements OnInit {
   }
 
   getRandomMovies() {
+    // FIXME: Movies can have missing posters! Code against that or set defaults.
     this.movieService.getRandom().subscribe(
       data => { this.popularMovies = data; },
       err => console.error(err),
