@@ -20,7 +20,10 @@ export class MovieDetailComponent implements OnInit {
   ngOnInit() {}
 
   verifyPoster(src) {
-    if (src === 'N/A' || src.includes('media-imdb')) {
+    // FIXME: Surely theres a more elegant solution?
+    if (typeof src !== 'string') {
+      src = '';
+    } else if (src === 'N/A' || src.includes('media-imdb')) {
       return this.posterPlaceHolder;
     } else {
       return src;

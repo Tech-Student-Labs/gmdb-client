@@ -1,5 +1,5 @@
 <div class="card movie-card mx-1">
-  <a [routerLink]="['/movies', movie.imdbid]" [state]="movie">
+  <a *ngIf="movie" [routerLink]="['/movies', movie?.imdbid || {}]" [state]="movie">
     <img src="{{ verifyPoster(movie.poster) + '?text=' + movie.title }}" alt="movie poster for {{ movie.title }}" class="img-fluid rounded">
   </a>
 </div>
