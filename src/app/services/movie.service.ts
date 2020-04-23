@@ -31,8 +31,8 @@ export class MovieService {
     return this.http.get(this.apiUrl + '?search=', httpOptions);
   }
 
-  get(id: number): Observable<any> {
-    return this.http.get(this.apiUrl + id, httpOptions);
+  get(id: string): Observable<any> {
+    return this.http.get(this.apiUrl + `/imdb/${id}`, httpOptions);
   }
 
   search(query: string) {

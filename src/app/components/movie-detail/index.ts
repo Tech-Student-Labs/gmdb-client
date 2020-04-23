@@ -1,7 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Movie } from '../../models/movie';
-import {MovieService} from '../../services/movie.service';
-import {throwError} from 'rxjs';
 
 @Component({
   selector: 'movie',

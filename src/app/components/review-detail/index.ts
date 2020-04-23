@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Review } from '../../models/review';
+import {MovieService} from '../../services/movie.service';
 
 @Component({
   selector: 'review-detail',
