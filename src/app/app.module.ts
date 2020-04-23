@@ -9,7 +9,7 @@ import { AppComponent } from './app.component';
 import {
   SearchComponent, SearchFormComponent, LoginComponent, LoginFormComponent,
   MoviePageComponent, MovieListComponent, MovieDetailComponent,
-  CommentDetailComponent, CommentFormComponent, CommentListComponent,
+  ReviewDetailComponent, ReviewFormComponent, ReviewsListComponent,
   BreadcrumbsComponent, LandingPageComponent, NavigationComponent
 } from './components';
 
@@ -23,9 +23,9 @@ import {
     LoginComponent,
     MovieListComponent,
     MovieDetailComponent,
-    CommentFormComponent,
-    CommentListComponent,
-    CommentDetailComponent,
+    ReviewFormComponent,
+    ReviewsListComponent,
+    ReviewDetailComponent,
     LandingPageComponent,
     MoviePageComponent,
     BreadcrumbsComponent

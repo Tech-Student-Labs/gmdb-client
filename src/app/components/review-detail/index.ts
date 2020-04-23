@@ -1,13 +1,13 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Comment } from '../../models/comment';
+import { Review } from '../../models/review';
 
 @Component({
-  selector: 'comment-detail',
+  selector: 'review-detail',
   templateUrl: './index.html',
   styleUrls: ['./styles.css']
 })
-export class CommentDetailComponent implements OnInit {
-  @Input() comment: Comment;
+export class ReviewDetailComponent implements OnInit {
+  @Input() review: Review;
 
   constructor() { }
 

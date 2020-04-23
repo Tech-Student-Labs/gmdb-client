@@ -4,11 +4,11 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { Validators } from '@angular/forms';
 
 @Component({
-  selector: 'comment-form',
+  selector: 'review-form',
   templateUrl: './index.html',
   styleUrls: ['./styles.css']
 })
-export class CommentFormComponent implements OnInit {
+export class ReviewFormComponent implements OnInit {
   commentForm: FormGroup;
 
   // TODO: Get user from User service
@@ -28,18 +28,18 @@ export class CommentFormComponent implements OnInit {
   }
 
   /**
-   * Save Comment
-   * @event handler for submitting a new comment to the Comment Service.
+   * Save Review
+   * @event handler for submitting a new comment to the Review Service.
    */
   save() {
     if (this.commentForm.valid) {
-      // TODO: Connect to Comment service
-      console.log('Comment success!');
+      // TODO: Connect to Review service
+      console.log('Review success!');
       // TODO: User stays on movie view, new comment appears. Force refresh?
       this.router.navigate(['/home'])
         .catch(err => console.error('ERROR', 'Could not navigate to move detail.', err));
     } else {
-      console.log('Comment failed.');
+      console.log('Review failed.');
     }
   }
 }

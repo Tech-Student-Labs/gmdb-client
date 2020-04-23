@@ -44,10 +44,10 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 - [x] Login form
 - [x] Movie list
 - [x] Movie detail
-- [x] Comment form
+- [x] Review form
 - [x] Movie service
 - [x] Search service
-- [x] Comment service
+- [x] Review service
 - [ ] Star ratings
 - [ ] Promo/Landing page service (random movie search)
 - [ ] Suggestions (uses random)
