@@ -23,8 +23,8 @@ export class MoviePageComponent implements OnInit {
     // state comes from routerLink parameters on the template
     // this.movie = window.history.state;
     this.router.paramMap.subscribe(params => this.movieId = params.get('id'));
-    this.movie = this.movieService.getById(this.movieId);
-    if (this.movie === null){
+    this.movieService.getById(this.movieId).subscribe(movie => this.movie = movie);
+    if (!this.movie) {
       this.movieService.get(this.movieId).subscribe(movie => this.movie = movie);
     }
   }

@@ -8,11 +8,12 @@ import { MovieService } from '../../services/movie.service';
   styleUrls: ['./styles.css']
 })
 export class MovieListComponent implements OnInit {
-  movies: Movie[];
+  movies: Movie[] = [];
 
   constructor(private movieService: MovieService) { }
 
   ngOnInit() {
+    this.movies = this.movieService.getMovies();
     this.getMovies();
   }
 
@@ -20,7 +21,7 @@ export class MovieListComponent implements OnInit {
    * Get movies from localStorage. If empty, send request to API.
    */
   getMovies() {
-    if (this.movieService.movies === null) {
+    if (this.movies.length === 0) {
       this.movieService.all().subscribe(
         data => { this.movies = data; },
         err => console.error(err),
@@ -28,7 +29,7 @@ export class MovieListComponent implements OnInit {
       );
     } else {
       console.log('Using recent movies ...');
-      this.movies = this.movieService.movies;
+      return this.movies;
     }
   }
 
