@@ -49,10 +49,10 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 - [x] Search service
 - [x] Review service
 - [ ] Star ratings
-- [ ] Promo/Landing page service (random movie search)
-- [ ] Suggestions (uses random)
-- [ ] OPTIONAL: User profile
+- [x] Promo/Landing page service (random movie search)
 - [ ] Fix search (currently can't search from a results page)
+- [ ] Use localstorage for data persistence on all services.
+- [ ] OPTIONAL: User profile
 
 ## User Stories
 

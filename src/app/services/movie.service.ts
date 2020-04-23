@@ -1,9 +1,9 @@
-import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable, of } from 'rxjs';
-import { ApiServices as api } from '../utils/api-services.enum';
-import { environment as env } from '../../environments/environment';
-import { Movie } from '../models/movie';
+import {Injectable} from '@angular/core';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {Observable, of} from 'rxjs';
+import {ApiServices as api} from '../utils/api-services.enum';
+import {environment as env} from '../../environments/environment';
+import {Movie} from '../models/movie';
 
 const httpOptions = {
   headers: new HttpHeaders({'Content-Type': 'application/json'})
@@ -18,8 +18,13 @@ export class MovieService {
 
   constructor(private http: HttpClient) {
     this.all().subscribe(data => {
-      this.movies = data;
+      this.movies = this.updateStorage(data);
     });
+  }
+
+  updateStorage(movies) {
+    localStorage.setItem('movies', JSON.stringify(movies));
+    return JSON.parse(localStorage.getItem('movies'));
   }
 
   all(): Observable<any> {
