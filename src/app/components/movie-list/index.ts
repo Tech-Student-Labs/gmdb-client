@@ -8,12 +8,14 @@ import { MovieService } from '../../services/movie.service';
   styleUrls: ['./styles.css']
 })
 export class MovieListComponent implements OnInit {
-  movies: Movie[] = [];
+  movies: Movie[];
 
-  constructor(private movieService: MovieService) { }
+  constructor(private movieService: MovieService) {
+    this.movies = [];
+  }
 
   ngOnInit() {
-    this.movies = this.movieService.getMovies();
+    this.movies = this.movieService.getMovies() || [];
     this.getMovies();
   }
 
