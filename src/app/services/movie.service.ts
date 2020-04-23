@@ -13,7 +13,7 @@ const httpOptions = {
   providedIn: 'root'
 })
 export class MovieService {
-  private movies: Movie[];
+  public movies: Movie[];
   private apiUrl = env.apiUrl + api.MoviesApi;
 
   constructor(private http: HttpClient) {
@@ -28,7 +28,11 @@ export class MovieService {
   }
 
   all(): Observable<any> {
-    return this.http.get(this.apiUrl + '?search=', httpOptions);
+    return this.http.get(this.apiUrl, httpOptions);
+  }
+
+  getById(id: string): Movie {
+    return this.movies.filter(movie => movie.imdbid === id)[0];
   }
 
   get(id: string): Observable<any> {

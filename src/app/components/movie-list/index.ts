@@ -16,12 +16,20 @@ export class MovieListComponent implements OnInit {
     this.getMovies();
   }
 
+  /**
+   * Get movies from localStorage. If empty, send request to API.
+   */
   getMovies() {
-    this.movieService.all().subscribe(
-      data => { this.movies = data; },
-      err => console.error(err),
-      () => console.log('movies loaded')
-    );
+    if (this.movieService.movies === null) {
+      this.movieService.all().subscribe(
+        data => { this.movies = data; },
+        err => console.error(err),
+        () => console.log('Movies list refreshed!')
+      );
+    } else {
+      console.log('Using recent movies ...');
+      this.movies = this.movieService.movies;
+    }
   }
 
 }
