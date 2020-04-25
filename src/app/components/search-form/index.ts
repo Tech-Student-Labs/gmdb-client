@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {SearchService} from '../../services/search.service';
 
 @Component({
   selector: 'search-form',
@@ -21,7 +22,7 @@ export class SearchFormComponent implements OnInit {
   @Output() searchInput = new EventEmitter();
   searchForm: FormGroup;
 
-  constructor(private fb: FormBuilder) { }
+  constructor(private fb: FormBuilder, private searchService: SearchService) { }
 
   ngOnInit() {
     this.searchForm = this.fb.group({
@@ -32,10 +33,15 @@ export class SearchFormComponent implements OnInit {
   /**
    * Search form Handler
    * @event
-   * @desc emits search form data for parent components to receive.
+   * @desc emits search-results form data for parent components to receive.
    */
   handleQuery() {
+    this.search(this.searchForm.controls.query.value);
     this.searchInput.emit(this.searchForm.controls.query.value);
+  }
+
+  search(query) {
+    this.searchService.search(query);
   }
 
 }

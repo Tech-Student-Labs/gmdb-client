@@ -9,12 +9,10 @@ import { Router } from '@angular/router';
 export class NavigationComponent implements OnInit {
   loggedIn = false;
   searchClass = 'warning';
-  searchQuery;
 
   constructor(private router: Router) { }
 
-  ngOnInit() {
-  }
+  ngOnInit() { }
 
   /**
    * Search form handler
@@ -22,7 +20,6 @@ export class NavigationComponent implements OnInit {
    * @param query, search form data
    */
   handleQuery(query) {
-    this.searchQuery = query;
     this.router.navigate(['search'], { queryParams: { q:  query } });
   }
 

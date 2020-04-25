@@ -20,7 +20,7 @@
       </li>
     </ul>
   </div>
-<!--  Take event @Output from search-form component and use it to send user to results page
+<!--  Take event @Output from search-results-form component and use it to send user to results page
       $event is an Angular object that contains the form data submitted -->
   <search-form [customClass]="searchClass" (searchInput)="handleQuery($event)"></search-form>
 </nav>

@@ -7,17 +7,18 @@ import { HttpClientModule } from '@angular/common/http';
 import { AppComponent } from './app.component';
 
 import {
-  SearchComponent, SearchFormComponent, LoginComponent, LoginFormComponent,
+  SearchResultsComponent, SearchFormComponent, LoginComponent, LoginFormComponent,
   MoviePageComponent, MovieListComponent, MovieDetailComponent,
   ReviewDetailComponent, ReviewFormComponent, ReviewsListComponent,
-  BreadcrumbsComponent, LandingPageComponent, NavigationComponent
+  BreadcrumbsComponent, LandingPageComponent, NavigationComponent,
+  SearchPageComponent
 } from './components';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavigationComponent,
-    SearchComponent,
+    SearchResultsComponent,
     SearchFormComponent,
     LoginFormComponent,
     LoginComponent,
@@ -28,7 +29,8 @@ import {
     ReviewDetailComponent,
     LandingPageComponent,
     MoviePageComponent,
-    BreadcrumbsComponent
+    BreadcrumbsComponent,
+    SearchPageComponent
   ],
   imports: [
     BrowserModule,
