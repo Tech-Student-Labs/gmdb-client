@@ -4,19 +4,19 @@
   Then add 1 field at a time, adding validation as you go! -->
   <form (ngSubmit)="authenticate()" [formGroup]="loginForm" class="form col-md-6 offset-sm-3">
 
-    <!--    EMAIL INPUT
+    <!--    USERNAME INPUT
         FormControls have names represented by the keys of the FormGroup.
         Take a look at the controller to see how HTML here mirrors controls there.-->
     <div class="form-group">
-      <label>Email:</label>
-        <input class="form-control" type="email" formControlName="email" required>
+      <label>Username:</label>
+        <input class="form-control" type="username" formControlName="username" required>
 
     </div>
 
-    <!--    EMAIL VALIDATION
+    <!--    USERNAME VALIDATION
       FormControls have names represented by the keys of the FormGroup.
       Take a look at the controller to see how HTML here mirrors controls there.-->
-    <div *ngIf="loginForm.controls.email.invalid && loginForm.controls.email.dirty" class="alert alert-danger">
+    <div *ngIf="loginForm.controls.username.invalid && loginForm.controls.username.dirty" class="alert alert-danger">
       Invalid email.
     </div>
     <br />
@@ -38,4 +38,5 @@
     <br />
     <input class="btn btn-primary" type="submit" value="Login">
   </form>
+  <div *ngIf="loginError">{{ loginError }}</div>
 </div>

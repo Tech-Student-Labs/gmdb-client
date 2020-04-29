@@ -50,8 +50,10 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 - [x] Review service
 - [ ] Star ratings
 - [x] Promo/Landing page service (random movie search)
-- [ ] Fix search (currently can't search from a results page)
-- [ ] Use localstorage for data persistence on all services.
+- [x] Fix search (currently can't search from a results page)
+- [ ] Change breadcrumb: should navigate home from search results
+- [x] JWT authentication and authorization.
+- [x] Use localstorage for data persistence on all services.
 - [ ] OPTIONAL: User profile
 
 ## User Stories

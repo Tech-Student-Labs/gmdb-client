@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  apiUrl: 'http://gmdb-dev.robwing.com:8000/'
+  apiUrl: 'http://gmdb-dev.robwing.com:8000'
 };
 
 /*

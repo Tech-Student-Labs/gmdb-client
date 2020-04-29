@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Validators } from '@angular/forms';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'login-form',
@@ -10,7 +11,10 @@ import { Validators } from '@angular/forms';
 })
 export class LoginFormComponent implements OnInit {
   loginForm: FormGroup;
-  constructor(private fb: FormBuilder, private router: Router) { }
+  loginError: string;
+
+  constructor(private fb: FormBuilder, private router: Router,
+              private authService: AuthService) { }
 
   /**
    * Initialize component
@@ -18,8 +22,8 @@ export class LoginFormComponent implements OnInit {
    */
   ngOnInit() {
     this.loginForm = this.fb.group({
-      email: ['', Validators.email],
-      password: ['', [Validators.required, Validators.minLength(6)]],
+      username: ['', Validators.email],
+      password: ['', Validators.required],
     });
   }
 
@@ -29,12 +33,16 @@ export class LoginFormComponent implements OnInit {
    */
   authenticate() {
     if (this.loginForm.valid) {
-      // TODO: Connect user service to authenticate.
-      console.log('Login success!');
-      this.router.navigate(['/home'])
-        .catch(err => console.error('ERROR', 'Could not navigate to home.', err));
+      const isSuccessful = this.authService.login(this.loginForm.value).success;
+      if (isSuccessful) {
+        this.router.navigate([''])
+          .catch(err => console.error('ERROR', 'Could not navigate to home.', err));
+      } else {
+        this.loginError = 'Login failed. Try again.';
+      }
     } else {
-      console.log('Login failed.');
+      console.log('Login form is invalid.');
+      this.loginForm.reset();
     }
   }
 }
