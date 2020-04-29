@@ -11,6 +11,7 @@
       </li>
       <li class="nav-item" *ngIf="loggedIn">
         <a routerLink="/profile" class="nav-link">Profile</a>
+        <a class="nav-link" (click)="logout()">Logout</a>
       </li>
       <li class="nav-item">
         <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>

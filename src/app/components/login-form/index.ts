@@ -33,7 +33,7 @@ export class LoginFormComponent implements OnInit {
    */
   authenticate() {
     if (this.loginForm.valid) {
-      const isSuccessful = this.authService.login(this.loginForm.value).success;
+      const isSuccessful = this.authService.login(this.loginForm.value);
       if (isSuccessful) {
         this.router.navigate([''])
           .catch(err => console.error('ERROR', 'Could not navigate to home.', err));

@@ -11,7 +11,7 @@ export class NavigationComponent implements OnInit {
   loggedIn = false;
   searchClass = 'warning';
 
-  constructor(private router: Router) { }
+  constructor(private router: Router, private authService: AuthService) { }
 
   ngOnInit() {
     this.loggedIn = !!sessionStorage.getItem('currentUser');
@@ -24,6 +24,11 @@ export class NavigationComponent implements OnInit {
    */
   handleQuery(query) {
     this.router.navigate(['search'], { queryParams: { q:  query } });
+  }
+
+  logout() {
+    this.authService.logout();
+    this.router.navigate(['']);
   }
 
 }

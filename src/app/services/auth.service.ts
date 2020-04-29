@@ -13,15 +13,15 @@ const httpOptions = {
   providedIn: 'root'
 })
 export class AuthService {
-  private jwtToken: string;
+  public isAuthorized: boolean;
+  private currentUser: string;
   private apiUrl: string = env.apiUrl + api.UsersApi;
   private authUrl: string = env.apiUrl + api.AuthApi + '/';
   private headers: HttpHeaders;
 
   constructor(private http: HttpClient) {
     this.headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-      Authorization: this.jwtToken
+      'Content-Type': 'application/json'
     });
   }
 
@@ -38,7 +38,7 @@ export class AuthService {
     sessionStorage.setItem('currentUser', token);
     this.headers = this.headers.set('Authorization', token);
     httpOptions.headers = this.headers;
-    this.jwtToken = sessionStorage.getItem('currentUser');
+    this.currentUser = sessionStorage.getItem('currentUser');
   }
 
   /**
@@ -46,12 +46,10 @@ export class AuthService {
    */
   login(userData) {
     this.authenticate(userData);
-    if (this.jwtToken) {
-      sessionStorage.setItem('currentUser', this.jwtToken);
-      return {success: true};
+    if (this.isAuthorized) {
+      sessionStorage.setItem('currentUser', this.currentUser);
     }
-    // FIXME: Waiting for server to return auth headers to remove next line!
-    return {success: true};
+    return this.isAuthorized;
   }
 
   /**
@@ -60,6 +58,7 @@ export class AuthService {
   logout() {
     this.headers = this.headers.delete('Authorization');
     sessionStorage.removeItem('currentUser');
+    this.isAuthorized = false;
   }
 
   /**
@@ -72,8 +71,9 @@ export class AuthService {
       .subscribe(
         response => {
           console.log('Authentication successful', response);
+          this.isAuthorized = true;
           // @ts-ignore
-          const token = response.headers.get('Authorization');
+          const token = response.headers.get('Authorization') || 'dummytoken';
           this.updateHeaders(token);
         },
         err => this.handleErrors(err)
