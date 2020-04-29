@@ -42,6 +42,7 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 - [x] Navigation
 - [x] Search bar
 - [x] Login form
+- [ ] Registration form
 - [x] Movie list
 - [x] Movie detail
 - [x] Review form
