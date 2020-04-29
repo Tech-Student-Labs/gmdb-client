@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import {AuthService} from '../../services/auth.service';
 
 @Component({
   selector: 'app-navigation',
@@ -12,7 +13,9 @@ export class NavigationComponent implements OnInit {
 
   constructor(private router: Router) { }
 
-  ngOnInit() { }
+  ngOnInit() {
+    this.loggedIn = !!sessionStorage.getItem('currentUser');
+  }
 
   /**
    * Search form handler
