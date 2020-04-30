@@ -1,6 +1,8 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { JwtModule } from '@auth0/angular-jwt';
+
 import { AppRoutingModule } from './app-routing.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
@@ -13,6 +15,8 @@ import {
   BreadcrumbsComponent, LandingPageComponent, NavigationComponent,
   SearchPageComponent
 } from './components';
+
+const tokenGetter = () => sessionStorage.getItem('currentUser');
 
 @NgModule({
   declarations: [
@@ -38,7 +42,13 @@ import {
     AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    JwtModule.forRoot({
+      config: {
+        tokenGetter,
+        whitelistedDomains: ['gmdb-dev.robwing.com:8000']
+      }
+    })
   ],
   providers: [],
   bootstrap: [AppComponent]

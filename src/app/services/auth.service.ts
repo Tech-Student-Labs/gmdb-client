@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { ApiServices as api } from '../utils/api-services.enum';
 import { environment as env } from '../../environments/environment';
+import { of } from 'rxjs';
 
 // Cannot set any additional options directly here. Use the spreader in context to add options.
 // https://github.com/angular/angular/issues/18586
@@ -23,6 +24,7 @@ export class AuthService {
     this.headers = new HttpHeaders({
       'Content-Type': 'application/json'
     });
+    this.isAuthorized = false;
   }
 
   signup(userData) {
@@ -47,9 +49,10 @@ export class AuthService {
   login(userData) {
     this.authenticate(userData);
     if (this.isAuthorized) {
+      console.log('AuthService.login', 'authorization successful.');
       sessionStorage.setItem('currentUser', this.currentUser);
     }
-    return this.isAuthorized;
+    return of(this.isAuthorized);
   }
 
   /**
@@ -62,7 +65,7 @@ export class AuthService {
   }
 
   /**
-   * Authenticate using API
+   * Send user credentials to the API for a token
    * @param userData data
    */
   authenticate(userData) {
@@ -70,7 +73,7 @@ export class AuthService {
     this.http.post(this.authUrl, userData, { ...httpOptions, observe: 'response', withCredentials: true})
       .subscribe(
         response => {
-          console.log('Authentication successful', response);
+          console.log('AuthService.authenticate', 'Success');
           this.isAuthorized = true;
           // @ts-ignore
           const token = response.headers.get('Authorization') || 'dummytoken';
