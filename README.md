@@ -48,7 +48,9 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 - [x] Review form
 - [x] Movie service
 - [x] Search service
-- [x] Review service
+- [ ] Review service
+  * Movie detail: Get reviews by movie id
+  * User detail: Get reviews by user id
 - [ ] Star ratings
 - [x] Promo/Landing page service (random movie search)
 - [x] Fix search (currently can't search from a results page)
