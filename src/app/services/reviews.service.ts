@@ -24,8 +24,24 @@ export class ReviewsService {
     return this.http.get<Review[]>(this.apiUrl + '?search=', httpOptions);
   }
 
+  create(reviewBody): Observable<any> {
+    const reviewData = { ...reviewBody };
+    return this.http.post(this.apiUrl, reviewData);
+  }
+
   get(id: number): Observable<any> {
     return this.http.get(this.apiUrl + id, httpOptions);
+  }
+
+  getByMovieId(movieId: string) {
+    const reviews = JSON.parse(localStorage.getItem('reviews'));
+    const results = reviews.filter(review => review.movieId === movieId);
+    return of(results);
+  }
+
+  getByUserId(userId: string) {
+    const reviews = JSON.parse(localStorage.getItem('reviews'));
+    return reviews.filter(review => review.userId === userId);
   }
 
   search(query: string) {

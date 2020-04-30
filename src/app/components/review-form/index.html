@@ -1,30 +1,29 @@
-<div *ngIf="currentUser; else plsLogin">
+<div *ngIf="isAuthorized && !formSubmitted; else plsLogin">
   <!--  FORM BEGIN
   Always start with a regular form, no directives.
   Then add 1 field at a time, adding validation as you go! -->
-  <form (ngSubmit)="save()" [formGroup]="commentForm" class="form col-md-6">
-    <label>
-      <input class="form-control" type="text" formControlName="userId" value="{{ currentUser }}" hidden required>
-    </label>
-
-    <!--    COMMENT INPUT
+  <form (ngSubmit)="create()" [formGroup]="reviewForm" class="form col-md-6">
+    <!--    REVIEW INPUT
       FormControls have names represented by the keys of the FormGroup.
       Take a look at the controller to see how HTML here mirrors controls there.-->
     <div class="form-group">
-      <label>Leave a comment:
+      <label>Leave a review:
         <input class="form-control" type="text" formControlName="body" required>
       </label>
     </div>
 
-    <!--    COMMENT VALIDATION
+    <!--    REVIEW VALIDATION
       FormControls have names represented by the keys of the FormGroup.
       Take a look at the controller to see how HTML here mirrors controls there.-->
-    <div *ngIf="commentForm.controls.body.invalid && commentForm.controls.body.dirty" class="alert alert-danger">
+    <div *ngIf="reviewForm.controls.body.invalid && reviewForm.controls.body.dirty" class="alert alert-danger">
       Your opinion is wrong.
     </div>
     <br />
     <input class="btn btn-primary" type="submit" value="Submit">
   </form>
+  <div *ngIf="reviewError">
+    {{ reviewError }}
+  </div>
 </div>
 <!-- TEMPLATE VARIABLES
   This is the syntax for creating an Angular template.
@@ -32,5 +31,5 @@
   This will only display when the condition on line 1 is false.
   See: https://angular.io/api/common/NgIf#description -->
 <ng-template #plsLogin>
-  Login to leave a comment!
+  <h3>Reviews</h3>
 </ng-template>

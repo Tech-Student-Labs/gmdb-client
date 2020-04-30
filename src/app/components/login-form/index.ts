@@ -33,16 +33,10 @@ export class LoginFormComponent implements OnInit {
    */
   authenticate() {
     if (this.loginForm.valid) {
-      const isSuccessful = this.authService.login(this.loginForm.value);
-      if (isSuccessful) {
-        this.router.navigate([''])
-          .catch(err => console.error('ERROR', 'Could not navigate to home.', err));
-      } else {
-        this.loginError = 'Login failed. Try again.';
-      }
-    } else {
-      console.log('Login form is invalid.');
-      this.loginForm.reset();
+      this.authService.authenticate(this.loginForm.value);
+      console.log('LoginForm.authenticate', 'success');
+      this.router.navigate([''])
+        .catch(err => console.error('LoginForm.authenticate', 'Could not navigate to home.', err));
     }
   }
 }

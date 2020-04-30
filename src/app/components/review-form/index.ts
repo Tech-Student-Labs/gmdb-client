@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Validators } from '@angular/forms';
+import { AuthService } from '../../services/auth.service';
+import { ReviewsService } from '../../services/reviews.service';
 
 @Component({
   selector: 'review-form',
@@ -9,37 +11,49 @@ import { Validators } from '@angular/forms';
   styleUrls: ['./styles.css']
 })
 export class ReviewFormComponent implements OnInit {
-  commentForm: FormGroup;
+  reviewForm: FormGroup;
+  isAuthorized: boolean;
+  movieId: string;
+  reviewError: string;
+  // TODO: Temp hack so users can't submit more than 1 review.
+  formSubmitted: boolean;
 
-  // TODO: Get user from User service
-  currentUser = {};
-
-  constructor(private fb: FormBuilder, private router: Router) { }
+  constructor(private fb: FormBuilder, private router: Router,
+              private authService: AuthService,
+              private reviewsService: ReviewsService,
+              private route: ActivatedRoute) {
+    this.formSubmitted = false;
+  }
 
   /**
    * Initialize component
    * @desc sets initial state for component no load
    */
   ngOnInit() {
-    this.commentForm = this.fb.group({
-      userId: [''],
+    this.reviewForm = this.fb.group({
+      movieId: [''],
       body: ['', [Validators.required, Validators.minLength(10)]],
     });
+    this.isAuthorized = this.authService.isAuthorized;
+    this.route.params.subscribe(params => this.movieId = params.get('movieId'));
   }
 
   /**
    * Save Review
    * @event handler for submitting a new comment to the Review Service.
    */
-  save() {
-    if (this.commentForm.valid) {
-      // TODO: Connect to Review service
-      console.log('Review success!');
-      // TODO: User stays on movie view, new comment appears. Force refresh?
-      this.router.navigate(['/home'])
-        .catch(err => console.error('ERROR', 'Could not navigate to move detail.', err));
+  create() {
+    if (this.reviewForm.valid) {
+      this.reviewsService.create(this.reviewForm.value)
+        .subscribe(
+          (res) => console.log('ReviewForm.create', 'success', res),
+          (err) => console.error('ReviewForm.create', err)
+        );
     } else {
+      this.reviewError = 'There was a problem submitting your review, try again.';
       console.log('Review failed.');
     }
+    this.formSubmitted = true;
+    this.reviewForm.reset();
   }
 }

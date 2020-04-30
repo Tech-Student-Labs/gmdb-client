@@ -19,7 +19,7 @@ const routes: Routes = [
   { component: SearchPageComponent, path: 'search'},
   { component: LoginComponent, path: 'login'},
   { component: MovieListComponent, path: 'movies'},
-  { component: MoviePageComponent, path: 'movies/:id'}
+  { component: MoviePageComponent, path: 'movies/:movieId'}
 ];
 
 @NgModule({
