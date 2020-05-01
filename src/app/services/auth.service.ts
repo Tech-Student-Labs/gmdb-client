@@ -76,7 +76,7 @@ export class AuthService {
           console.log('AuthService.authenticate', 'Success');
           this.isAuthorized = true;
           // @ts-ignore
-          const token = response.headers.get('Authorization') || 'dummytoken';
+          const token = response.headers.get('Authorization');
           this.updateHeaders(token);
         },
         err => this.handleErrors(err)
