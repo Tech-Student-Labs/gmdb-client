@@ -62,8 +62,7 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "gmdb-ui:build",
-            "proxyConfig": "proxy.conf.json"
+            "browserTarget": "gmdb-ui:build"
           },
           "configurations": {
             "production": {

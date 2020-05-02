@@ -45,8 +45,7 @@ const tokenGetter = () => sessionStorage.getItem('currentUser');
     HttpClientModule,
     JwtModule.forRoot({
       config: {
-        tokenGetter,
-        whitelistedDomains: ['gmdb-dev.robwing.com:8000']
+        tokenGetter
       }
     })
   ],
