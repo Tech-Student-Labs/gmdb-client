@@ -12,6 +12,12 @@ This project contains an Angular client to front the GMDB microservices API.
 - Leave reviews
 - Leave comments
 
+## Student Setup
+
+1. Open `environment.prod.ts`
+2. Change the value of `apiUrl` to the URL for your api service.
+3. Build with docker as usual.
+
 ## Setup
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli).
