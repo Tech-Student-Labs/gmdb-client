@@ -56,6 +56,14 @@
                   "maximumError": "5mb"
                 }
               ]
+            },
+            "development": {
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.dev.ts"
+                }
+              ]
             }
           }
         },
@@ -67,6 +75,9 @@
           "configurations": {
             "production": {
               "browserTarget": "gmdb-ui:build:production"
+            },
+            "development": {
+              "browserTarget": "gmdb-ui:build:development"
             }
           }
         },

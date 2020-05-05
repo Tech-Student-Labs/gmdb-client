@@ -5,6 +5,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve --host 0.0.0.0 --public-host --disableHostCheck",
+    "dev-server": "ng serve --host 0.0.0.0 --configuration=development",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
