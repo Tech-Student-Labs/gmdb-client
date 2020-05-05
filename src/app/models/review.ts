@@ -1,8 +1,9 @@
 export class Review {
   id: number;
-  reviewerId?: number;
-  movieId: number;
+  reviewerId: string;
+  imdbId: string;
+  movieId?: number;
   reviewTitle: string;
   reviewText: string;
-  lastUpdated: Date;
+  lastUpdated?: Date;
 }

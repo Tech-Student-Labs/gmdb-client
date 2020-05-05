@@ -48,7 +48,7 @@ export class MovieService {
    * @desc Get Movies from localStorage
    */
   getMovies() {
-    return JSON.parse(localStorage.getItem('movies'));
+    return JSON.parse(localStorage.getItem('movies')) || [];
   }
 
   getById(id: string): Observable<Movie> {
@@ -69,4 +69,6 @@ export class MovieService {
   getRandom(quantity: number = 5): Observable<Movie[]> {
     return this.http.get<Movie[]>(this.apiUrl + `/rand?quantity=${quantity}`, httpOptions);
   }
+
+  getReviews(){}
 }

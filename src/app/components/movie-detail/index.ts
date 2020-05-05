@@ -1,5 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Movie } from '../../models/movie';
+import { Review } from '../../models/review';
+import { ReviewsService } from '../../services/reviews.service';
 
 @Component({
   selector: 'movie',
@@ -11,11 +13,15 @@ export class MovieDetailComponent implements OnInit {
    * Movie Detail displays brief info about a movie: poster and title only
    */
   @Input() movie: Movie;
+  reviews: Review[];
   posterPlaceHolder = 'https://via.placeholder.com/300x445/000/';
 
-  constructor() { }
+  constructor(private reviewService: ReviewsService) { }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.reviewService.getByMovieId(this.movie.imdbid)
+      .subscribe(reviews => this.reviews = reviews);
+  }
 
   verifyPoster(src) {
     // FIXME: Surely theres a more elegant solution?

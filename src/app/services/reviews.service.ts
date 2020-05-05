@@ -17,7 +17,12 @@ export class ReviewsService {
   private apiUrl = env.apiUrl + api.ReviewsApi;
 
   constructor(private http: HttpClient) {
-    this.all().subscribe(reviews => this.reviews = reviews);
+    this.all().subscribe(reviews => this.reviews = this.updateStorage(reviews));
+  }
+
+  updateStorage(reviews) {
+    localStorage.setItem('reviews', JSON.stringify(reviews));
+    return JSON.parse(localStorage.getItem('reviews'));
   }
 
   all(): Observable<any> {
@@ -25,7 +30,7 @@ export class ReviewsService {
   }
 
   create(reviewBody): Observable<any> {
-    const reviewData = { ...reviewBody };
+    const reviewData = { ...reviewBody, reviewerId: 42 };
     return this.http.post(this.apiUrl, reviewData);
   }
 
@@ -33,19 +38,41 @@ export class ReviewsService {
     return this.http.get(this.apiUrl + id, httpOptions);
   }
 
-  getByMovieId(movieId: string) {
-    const reviews = JSON.parse(localStorage.getItem('reviews'));
-    const results = reviews.filter(review => review.movieId === movieId);
+  getReviews(): Review[] {
+    return JSON.parse(localStorage.getItem('reviews')) || [];
+  }
+
+  getById(id: number): Review {
+    const reviews = this.getReviews();
+    return this.reviews.filter(review => review.id === id)[0];
+  }
+
+  getByMovieId(movieId: string): Observable<Review[]> {
+    const reviews = this.getReviews();
+    const results = reviews.filter(review => review.imdbId === movieId);
     return of(results);
   }
 
-  getByUserId(userId: string) {
-    const reviews = JSON.parse(localStorage.getItem('reviews'));
-    return reviews.filter(review => review.userId === userId);
+  getByUserId(userId: string): Observable<Review[]> {
+    const reviews = this.getReviews();
+    return of(reviews.filter(review => review.reviewerId === userId));
   }
 
   search(query: string) {
     const results = this.reviews.filter((review) => review.reviewTitle.toLowerCase().includes(query));
     return of(results);
+  }
+
+  searcyBy(category: string, key: string) {
+    switch (category) {
+      case 'movie':
+        this.getByMovieId(key);
+        break;
+      case 'reviewer':
+        this.getByUserId(key);
+        break;
+      default:
+        break;
+    }
   }
 }
