@@ -32,8 +32,10 @@ export class ReviewFormComponent implements OnInit {
   ngOnInit() {
     this.reviewForm = this.fb.group({
       imdbId: [ this.imdbId, Validators.required ],
-      reviewerId: [ '', Validators.required ],
-      body: ['', [Validators.required, Validators.minLength(10)]],
+      stars: [''],
+      // reviewerId: [ '', Validators.required ],
+      reviewTitle: [ '', Validators.required ],
+      reviewText: ['', [Validators.required, Validators.minLength(10)]],
     });
     this.authService.isAuthorized.subscribe(isAuthorized => this.isAuthorized = isAuthorized);
     this.route.paramMap.subscribe(params => this.imdbId = params.get('movieId'));
@@ -44,7 +46,7 @@ export class ReviewFormComponent implements OnInit {
    * @event handler for submitting a new comment to the Review Service.
    */
   create() {
-    this.reviewForm.patchValue({ imdbId: this.imdbId, reviewerId: this.authService.getUser().guid });
+    this.reviewForm.patchValue({ imdbId: this.imdbId });
     if (this.reviewForm.valid) {
       this.reviewsService.create(this.reviewForm.value)
         .subscribe(

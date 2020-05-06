@@ -32,8 +32,10 @@ export class ReviewsService {
 
   create(reviewBody): Observable<any> {
     // TODO: Check the reviewerId is in the reviewBody
+    const token = sessionStorage.getItem('currentUser');
+    const headers = new HttpHeaders({Authorization: token, 'Content-Type': 'application/json'});
     const reviewData = { ...reviewBody, reviewerId: this.authService.getUser().guid };
-    return this.http.post(this.apiUrl, reviewData);
+    return this.http.post(this.apiUrl, reviewData, { headers });
   }
 
   get(id: number): Observable<any> {

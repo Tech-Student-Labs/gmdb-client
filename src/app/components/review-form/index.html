@@ -3,19 +3,35 @@
   Always start with a regular form, no directives.
   Then add 1 field at a time, adding validation as you go! -->
   <form (ngSubmit)="create()" [formGroup]="reviewForm" class="form col-md-6">
+    <!--    REVIEW TITLE INPUT
+      FormControls have names represented by the keys of the FormGroup.
+      Take a look at the controller to see how HTML here mirrors controls there.-->
+    <div class="form-group">
+      <label>Review Title:
+        <input class="form-control" type="text" formControlName="reviewTitle" required>
+      </label>
+    </div>
+    <!--    TODO: Improve :)-->
+    <!--    REVIEW STARS INPUT -->
+    <div class="form-group">
+      <label>Stars:
+        <input class="form-control" type="text" formControlName="stars" required>
+      </label>
+    </div>
+
     <!--    REVIEW INPUT
       FormControls have names represented by the keys of the FormGroup.
       Take a look at the controller to see how HTML here mirrors controls there.-->
     <div class="form-group">
       <label>Leave a review:
-        <input class="form-control" type="text" formControlName="body" required>
+        <input class="form-control" type="text" formControlName="reviewText" required>
       </label>
     </div>
 
     <!--    REVIEW VALIDATION
       FormControls have names represented by the keys of the FormGroup.
       Take a look at the controller to see how HTML here mirrors controls there.-->
-    <div *ngIf="reviewForm.controls.body.invalid && reviewForm.controls.body.dirty" class="alert alert-danger">
+    <div *ngIf="reviewForm.controls.reviewText.invalid && reviewForm.controls.reviewText.dirty" class="alert alert-danger">
       Your opinion is wrong.
     </div>
     <br />

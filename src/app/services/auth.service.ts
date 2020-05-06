@@ -22,7 +22,7 @@ export class AuthService {
   private apiUrl: string = env.apiUrl + api.UsersApi;
   private authUrl: string = env.apiUrl + api.AuthApi;
   private registerUrl: string = env.apiUrl + api.SignupApi;
-  private headers: HttpHeaders;
+  public headers: HttpHeaders;
 
   constructor(private http: HttpClient) {
     this.headers = new HttpHeaders({
@@ -46,7 +46,7 @@ export class AuthService {
           console.log('AuthService.register', 'Success!');
           this.isAuthorized.next(true);
           // @ts-ignore
-          this.updateHeaders(response.headers.get('Authorization'));
+          // this.updateHeaders(response.headers.get('Authorization'));
         },
         err => this.handleErrors
       );
