@@ -13,7 +13,7 @@ import {
   MoviePageComponent, MovieListComponent, MovieDetailComponent,
   ReviewDetailComponent, ReviewFormComponent, ReviewsListComponent,
   BreadcrumbsComponent, LandingPageComponent, NavigationComponent,
-  SearchPageComponent
+  SearchPageComponent, SignupFormComponent, SignupPageComponent
 } from './components';
 
 const tokenGetter = () => sessionStorage.getItem('currentUser');
@@ -34,7 +34,9 @@ const tokenGetter = () => sessionStorage.getItem('currentUser');
     LandingPageComponent,
     MoviePageComponent,
     BreadcrumbsComponent,
-    SearchPageComponent
+    SearchPageComponent,
+    SignupFormComponent,
+    SignupPageComponent
   ],
   imports: [
     BrowserModule,

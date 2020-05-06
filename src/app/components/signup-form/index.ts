@@ -4,7 +4,7 @@ import {AuthService} from '../../services/auth.service';
 import {Router} from '@angular/router';
 
 @Component({
-  selector: 'app-signup-form',
+  selector: 'signup-form',
   templateUrl: './index.html',
   styleUrls: ['./styles.css']
 })

@@ -6,6 +6,7 @@ import { MovieListComponent } from './components/movie-list';
 import { LandingPageComponent } from './components/landing-page';
 import {MoviePageComponent} from './components/movie-page';
 import {SearchPageComponent} from './components/search-page';
+import {SignupPageComponent} from './components/signup-page';
 
 /**
  * ROUTING MODULE
@@ -15,11 +16,12 @@ import {SearchPageComponent} from './components/search-page';
  * https://angular.io/guide/router#configuration
  */
 const routes: Routes = [
-  { component: LandingPageComponent, path: ''},
-  { component: SearchPageComponent, path: 'search'},
-  { component: LoginComponent, path: 'login'},
-  { component: MovieListComponent, path: 'movies'},
-  { component: MoviePageComponent, path: 'movies/:movieId'}
+  { component: LandingPageComponent, path: '' },
+  { component: SearchPageComponent, path: 'search' },
+  { component: LoginComponent, path: 'login' },
+  { component: SignupPageComponent, path: 'signup' },
+  { component: MovieListComponent, path: 'movies' },
+  { component: MoviePageComponent, path: 'movies/:movieId' }
 ];
 
 @NgModule({

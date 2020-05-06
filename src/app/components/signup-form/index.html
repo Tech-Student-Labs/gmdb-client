@@ -27,15 +27,8 @@
             Take a look at the controller to see how HTML here mirrors controls there.-->
     <div class="form-group">
       <label>Email:</label>
-      <input class="form-control" type="text" formControlName="email" required>
+      <input class="form-control" type="email" formControlName="email" required>
 
-    </div>
-
-    <!--    EMAIL VALIDATION
-    FormControls have names represented by the keys of the FormGroup.
-    Take a look at the controller to see how HTML here mirrors controls there.-->
-    <div *ngIf="signupForm.controls.email.invalid && signupForm.controls.email.dirty" class="alert alert-danger">
-      Invalid email.
     </div>
     <br />
 
@@ -58,11 +51,13 @@
     <!--    PASSWORD VALIDATION
       FormControls have names represented by the keys of the FormGroup.
       Take a look at the controller to see how HTML here mirrors controls there.-->
-    <div *ngIf="signupForm.controls.password !== signupForm.controls.passwordConf" class="alert alert-danger">
-      Passwords must match.
+    <div *ngIf="signupForm.controls.password.dirty && signupForm.controls.passwordConf.dirty">
+      <div *ngIf="signupForm.controls.password.value !== signupForm.controls.passwordConf.value" class="alert alert-warning">
+        Passwords must match.
+      </div>
     </div>
     <br />
-    <input class="btn btn-primary" type="submit" value="Login">
+    <input class="btn btn-primary" type="submit" value="Create Account" [disabled]="!signupForm.valid">
   </form>
-  <div *ngIf="signupMsg" class="bg-warning">{{ signupMsg }}</div>
+  <div *ngIf="signupMsg" class="alert alert-danger">{{ signupMsg }}</div>
 </div>

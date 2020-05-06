@@ -39,6 +39,7 @@ export class AuthService {
   }
 
   register(userData) {
+    console.log('AuthService.register', 'Sending registration for: ', userData);
     return this.http.post(this.registerUrl, userData, {...httpOptions, observe: 'response', withCredentials: true})
       .subscribe(
         response => {
@@ -47,7 +48,7 @@ export class AuthService {
           // @ts-ignore
           this.updateHeaders(response.headers.get('Authorization'));
         },
-        err => console.error(err)
+        err => this.handleErrors
       );
   }
 
@@ -95,7 +96,7 @@ export class AuthService {
   }
 
   handleErrors(err: HttpErrorResponse) {
-    console.error('AuthService.authentication', 'This is not a request error.', err.error);
+    console.error('AuthService', 'This is not a request error.', err.error);
     throw err.error;
   }
 }
