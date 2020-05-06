@@ -8,7 +8,7 @@ import { BehaviorSubject, of } from 'rxjs';
 
 // Cannot set any additional options directly here. Use the spreader in context to add options.
 // https://github.com/angular/angular/issues/18586
-const httpOptions = {
+export const httpOptions = {
   headers: new HttpHeaders({'Content-Type': 'application/json'})
 };
 const helper = new JwtHelperService();
