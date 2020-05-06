@@ -5,5 +5,6 @@ export class Review {
   movieId?: number;
   reviewTitle: string;
   reviewText: string;
+  stars?: number;
   lastUpdated?: Date;
 }

@@ -1,5 +1,6 @@
-<div class="media">
+<div class="row media">
   <div class="media-body">
+    <img *ngFor="let n of stars" src="assets/images/star32.png" class="mr-3" alt="star rating image">
     <h5 class="media-title">{{ review.reviewTitle }}</h5>
     <p class="media-text">{{ review.reviewText }}</p>
   </div>

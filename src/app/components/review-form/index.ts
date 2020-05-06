@@ -13,7 +13,7 @@ import { ReviewsService } from '../../services/reviews.service';
 export class ReviewFormComponent implements OnInit {
   reviewForm: FormGroup;
   isAuthorized: boolean;
-  movieId: string;
+  imdbId: string;
   reviewError: string;
   // TODO: Temp hack so users can't submit more than 1 review.
   formSubmitted: boolean;
@@ -31,11 +31,12 @@ export class ReviewFormComponent implements OnInit {
    */
   ngOnInit() {
     this.reviewForm = this.fb.group({
-      movieId: [ this.movieId, Validators.required ],
+      imdbId: [ this.imdbId, Validators.required ],
+      reviewerId: [ '', Validators.required ],
       body: ['', [Validators.required, Validators.minLength(10)]],
     });
-    this.isAuthorized = this.authService.isAuthorized;
-    this.route.paramMap.subscribe(params => this.movieId = params.get('movieId'));
+    this.authService.isAuthorized.subscribe(isAuthorized => this.isAuthorized = isAuthorized);
+    this.route.paramMap.subscribe(params => this.imdbId = params.get('movieId'));
   }
 
   /**
@@ -43,7 +44,7 @@ export class ReviewFormComponent implements OnInit {
    * @event handler for submitting a new comment to the Review Service.
    */
   create() {
-    this.reviewForm.patchValue({movieId: this.movieId});
+    this.reviewForm.patchValue({ imdbId: this.imdbId, reviewerId: this.authService.getUser().guid });
     if (this.reviewForm.valid) {
       this.reviewsService.create(this.reviewForm.value)
         .subscribe(

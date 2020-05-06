@@ -4,6 +4,7 @@ import { Observable, of } from 'rxjs';
 import { ApiServices as api } from '../utils/api-services.enum';
 import { environment as env } from '../../environments/environment';
 import { Review } from '../models/review';
+import { AuthService } from './auth.service';
 
 const httpOptions = {
   headers: new HttpHeaders({'Content-Type': 'application/json'})
@@ -16,7 +17,7 @@ export class ReviewsService {
   private reviews: Review[];
   private apiUrl = env.apiUrl + api.ReviewsApi;
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private authService: AuthService) {
     this.all().subscribe(reviews => this.reviews = this.updateStorage(reviews));
   }
 
@@ -30,7 +31,8 @@ export class ReviewsService {
   }
 
   create(reviewBody): Observable<any> {
-    const reviewData = { ...reviewBody, reviewerId: 42 };
+    // TODO: Check the reviewerId is in the reviewBody
+    const reviewData = { ...reviewBody, reviewerId: this.authService.getUser().guid };
     return this.http.post(this.apiUrl, reviewData);
   }
 
@@ -61,18 +63,5 @@ export class ReviewsService {
   search(query: string) {
     const results = this.reviews.filter((review) => review.reviewTitle.toLowerCase().includes(query));
     return of(results);
-  }
-
-  searcyBy(category: string, key: string) {
-    switch (category) {
-      case 'movie':
-        this.getByMovieId(key);
-        break;
-      case 'reviewer':
-        this.getByUserId(key);
-        break;
-      default:
-        break;
-    }
   }
 }
