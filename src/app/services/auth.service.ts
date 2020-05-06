@@ -20,7 +20,8 @@ export class AuthService {
   public isAuthorized: BehaviorSubject<boolean>;
   private currentUser: string;
   private apiUrl: string = env.apiUrl + api.UsersApi;
-  private authUrl: string = env.apiUrl + api.AuthApi + '/';
+  private authUrl: string = env.apiUrl + api.AuthApi;
+  private registerUrl: string = env.apiUrl + api.SignupApi;
   private headers: HttpHeaders;
 
   constructor(private http: HttpClient) {
@@ -30,20 +31,23 @@ export class AuthService {
     this.isAuthorized = new BehaviorSubject(false);
   }
 
-  signup(userData) {
-    return this.http.post(this.apiUrl, userData, {...httpOptions, observe: 'response', withCredentials: true})
-      .subscribe(response => {
-        console.log(response);
-        // @ts-ignore
-        this.updateHeaders(response.headers.get('Authorization'));
-      });
-  }
-
   updateHeaders(token) {
     sessionStorage.setItem('currentUser', token);
     this.headers = this.headers.set('Authorization', token);
     httpOptions.headers = this.headers;
     this.currentUser = sessionStorage.getItem('currentUser');
+  }
+
+  register(userData) {
+    return this.http.post(this.registerUrl, userData, {...httpOptions, observe: 'response', withCredentials: true})
+      .subscribe(
+        response => {
+          console.log(response);
+          // @ts-ignore
+          this.updateHeaders(response.headers.get('Authorization'));
+        },
+        err => console.error(err)
+      );
   }
 
   /**
