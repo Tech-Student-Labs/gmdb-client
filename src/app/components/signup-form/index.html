@@ -1,0 +1,68 @@
+<div class="justify-content-center">
+  <!--  FORM BEGIN
+  Always start with a regular form, no directives.
+  Then add 1 field at a time, adding validation as you go! -->
+  <form (ngSubmit)="register()" [formGroup]="signupForm" class="form col-md-6 offset-sm-3">
+
+    <!--    FIRST NAME INPUT
+        FormControls have names represented by the keys of the FormGroup.
+        Take a look at the controller to see how HTML here mirrors controls there.-->
+    <div class="form-group">
+      <label>First Name:</label>
+      <input class="form-control" type="text" formControlName="firstName" required>
+
+    </div>
+
+    <!--    LAST NAME INPUT
+            FormControls have names represented by the keys of the FormGroup.
+            Take a look at the controller to see how HTML here mirrors controls there.-->
+    <div class="form-group">
+      <label>First Name:</label>
+      <input class="form-control" type="text" formControlName="lastName" required>
+
+    </div>
+
+    <!--    EMAIL INPUT
+            FormControls have names represented by the keys of the FormGroup.
+            Take a look at the controller to see how HTML here mirrors controls there.-->
+    <div class="form-group">
+      <label>Email:</label>
+      <input class="form-control" type="text" formControlName="email" required>
+
+    </div>
+
+    <!--    EMAIL VALIDATION
+    FormControls have names represented by the keys of the FormGroup.
+    Take a look at the controller to see how HTML here mirrors controls there.-->
+    <div *ngIf="signupForm.controls.email.invalid && signupForm.controls.email.dirty" class="alert alert-danger">
+      Invalid email.
+    </div>
+    <br />
+
+    <!--    PASSWORD INPUT
+      FormControls have names represented by the keys of the FormGroup.
+      Take a look at the controller to see how HTML here mirrors controls there.-->
+    <div class="form-group">
+      <label>Password:</label>
+      <input class="form-control" type="password" formControlName="password" required>
+    </div>
+
+    <!--    PASSWORD CONFIRMATION INPUT
+      FormControls have names represented by the keys of the FormGroup.
+      Take a look at the controller to see how HTML here mirrors controls there.-->
+    <div class="form-group">
+      <label>Confirm Password:</label>
+      <input class="form-control" type="password" formControlName="passwordConf" required>
+    </div>
+
+    <!--    PASSWORD VALIDATION
+      FormControls have names represented by the keys of the FormGroup.
+      Take a look at the controller to see how HTML here mirrors controls there.-->
+    <div *ngIf="signupForm.controls.password !== signupForm.controls.passwordConf" class="alert alert-danger">
+      Passwords must match.
+    </div>
+    <br />
+    <input class="btn btn-primary" type="submit" value="Login">
+  </form>
+  <div *ngIf="signupMsg" class="bg-warning">{{ signupMsg }}</div>
+</div>

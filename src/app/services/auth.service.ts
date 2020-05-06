@@ -42,7 +42,8 @@ export class AuthService {
     return this.http.post(this.registerUrl, userData, {...httpOptions, observe: 'response', withCredentials: true})
       .subscribe(
         response => {
-          console.log(response);
+          console.log('AuthService.register', 'Success!');
+          this.isAuthorized.next(true);
           // @ts-ignore
           this.updateHeaders(response.headers.get('Authorization'));
         },
@@ -76,15 +77,14 @@ export class AuthService {
    * @param userData data
    */
   authenticate(userData) {
-    console.log('Sending login request...');
+    console.log('AuthService.authenticate', 'Sending login request...');
     this.http.post(this.authUrl, userData, { ...httpOptions, observe: 'response', withCredentials: true})
       .subscribe(
         response => {
-          console.log('AuthService.authenticate', 'Success');
+          console.log('AuthService.authenticate', 'Login success!');
           this.isAuthorized.next(true);
           // @ts-ignore
-          const token = response.headers.get('Authorization');
-          this.updateHeaders(token);
+          this.updateHeaders(response.headers.get('Authorization'));
         },
         err => this.handleErrors(err)
     );
@@ -95,7 +95,7 @@ export class AuthService {
   }
 
   handleErrors(err: HttpErrorResponse) {
-    console.log('authentication() error occurred. This is not a request error.', err.error);
+    console.error('AuthService.authentication', 'This is not a request error.', err.error);
     throw err.error;
   }
 }

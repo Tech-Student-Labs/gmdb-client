@@ -12,3 +12,5 @@ export * from './review-detail';
 export * from './landing-page';
 export * from './movie-page';
 export * from './breadcrumbs';
+export * from './signup-form';
+export * from './signup-page';
