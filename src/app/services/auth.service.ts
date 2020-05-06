@@ -1,20 +1,23 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
+import { JwtHelperService } from '@auth0/angular-jwt';
+
 import { ApiServices as api } from '../utils/api-services.enum';
 import { environment as env } from '../../environments/environment';
-import { of } from 'rxjs';
+import { BehaviorSubject, of } from 'rxjs';
 
 // Cannot set any additional options directly here. Use the spreader in context to add options.
 // https://github.com/angular/angular/issues/18586
 const httpOptions = {
   headers: new HttpHeaders({'Content-Type': 'application/json'})
 };
+const helper = new JwtHelperService();
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  public isAuthorized: boolean;
+  public isAuthorized: BehaviorSubject<boolean>;
   private currentUser: string;
   private apiUrl: string = env.apiUrl + api.UsersApi;
   private authUrl: string = env.apiUrl + api.AuthApi + '/';
@@ -24,7 +27,7 @@ export class AuthService {
     this.headers = new HttpHeaders({
       'Content-Type': 'application/json'
     });
-    this.isAuthorized = false;
+    this.isAuthorized = new BehaviorSubject(false);
   }
 
   signup(userData) {
@@ -61,7 +64,7 @@ export class AuthService {
   logout() {
     this.headers = this.headers.delete('Authorization');
     sessionStorage.removeItem('currentUser');
-    this.isAuthorized = false;
+    this.isAuthorized.next(false);
   }
 
   /**
@@ -74,13 +77,17 @@ export class AuthService {
       .subscribe(
         response => {
           console.log('AuthService.authenticate', 'Success');
-          this.isAuthorized = true;
+          this.isAuthorized.next(true);
           // @ts-ignore
           const token = response.headers.get('Authorization');
           this.updateHeaders(token);
         },
         err => this.handleErrors(err)
     );
+  }
+
+  getUser() {
+    return helper.decodeToken(sessionStorage.getItem('currentUser'));
   }
 
   handleErrors(err: HttpErrorResponse) {

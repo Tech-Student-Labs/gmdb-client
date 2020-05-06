@@ -11,12 +11,10 @@ export class NavigationComponent implements OnInit {
   loggedIn = false;
   searchClass = 'warning';
 
-  constructor(private router: Router, private authService: AuthService) {
-    this.loggedIn = !!sessionStorage.getItem('currentUser');
-  }
+  constructor(private router: Router, private authService: AuthService) {}
 
   ngOnInit() {
-    // this.loggedIn = !!sessionStorage.getItem('currentUser');
+    this.authService.isAuthorized.subscribe(isAuthorized => this.loggedIn = isAuthorized);
   }
 
   /**
