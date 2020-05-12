@@ -27,7 +27,7 @@ export class ReviewsService {
   }
 
   all(): Observable<any> {
-    return this.http.get<Review[]>(this.apiUrl + '?search=', httpOptions);
+    return this.http.get<Review[]>(this.apiUrl, httpOptions);
   }
 
   create(reviewBody): Observable<any> {

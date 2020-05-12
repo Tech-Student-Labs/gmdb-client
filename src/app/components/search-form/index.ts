@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import {SearchService} from '../../services/search.service';
+import { SearchService } from '../../services/search.service';
 
 @Component({
   selector: 'search-form',
@@ -41,7 +41,7 @@ export class SearchFormComponent implements OnInit {
   }
 
   search(query) {
-    this.searchService.search(query);
+    this.searchService.search(query.toLowerCase());
   }
 
 }
