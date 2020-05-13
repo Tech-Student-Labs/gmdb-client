@@ -54,25 +54,13 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 - [x] Review form
 - [x] Movie service
 - [x] Search service
-- [ ] Review service
+- [x] Review service
   * Movie detail: Get reviews by movie id
   * User detail: Get reviews by user id
-- [ ] Star ratings
+- [x] Star ratings
 - [x] Promo/Landing page service (random movie search)
 - [x] Fix search (currently can't search from a results page)
 - [ ] Change breadcrumb: should navigate home from search results
 - [x] JWT authentication and authorization.
 - [x] Use localstorage for data persistence on all services.
 - [ ] OPTIONAL: User profile
-
-## User Stories
-
-```gherkin
-Feature: Movies
-Scenario: A a visitor is browsing GMDB.
-When a visitor views the homepage movie carousel
-Then the carousel should auto scroll from right to left
-
-
-
-```

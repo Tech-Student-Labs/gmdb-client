@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable, of } from 'rxjs';
+import { BehaviorSubject, Observable, of } from 'rxjs';
 import { ApiServices as api } from '../utils/api-services.enum';
 import { environment as env } from '../../environments/environment';
 import { Review } from '../models/review';
@@ -14,56 +14,106 @@ const httpOptions = {
   providedIn: 'root'
 })
 export class ReviewsService {
-  private reviews: Review[];
+  private reviews: BehaviorSubject<Review[]>;
   private apiUrl = env.apiUrl + api.ReviewsApi;
 
   constructor(private http: HttpClient, private authService: AuthService) {
-    this.all().subscribe(reviews => this.reviews = this.updateStorage(reviews));
+    this.reviews = new BehaviorSubject([]);
   }
 
   updateStorage(reviews) {
     localStorage.setItem('reviews', JSON.stringify(reviews));
-    return JSON.parse(localStorage.getItem('reviews'));
+    this.reviews.next(reviews);
   }
 
-  all(): Observable<any> {
-    return this.http.get<Review[]>(this.apiUrl, httpOptions);
-  }
-
-  create(reviewBody): Observable<any> {
-    // TODO: Check the reviewerId is in the reviewBody
+  create(reviewBody) {
     const token = sessionStorage.getItem('currentUser');
     const headers = new HttpHeaders({Authorization: token, 'Content-Type': 'application/json'});
-    const reviewData = { ...reviewBody, reviewerId: this.authService.getUser().guid };
-    return this.http.post(this.apiUrl, reviewData, { headers });
+    const reviewData = { ...reviewBody,  reviewerId: this.authService.getUser().guid };
+    this.http.post(this.apiUrl, reviewData, { headers, observe: 'response', withCredentials: true })
+      .subscribe(
+        (response) => {
+          // @ts-ignore
+          const review: Review = response.body;
+          const reviews = this.getReviews();
+          reviews.push(review);
+          this.updateStorage(reviews);
+        },
+        (err) => console.error('ReviewService.create', err)
+      );
   }
 
+  patch(reviewBody) {
+    const token = sessionStorage.getItem('currentUser');
+    const headers = new HttpHeaders({Authorization: token, 'Content-Type': 'application/json'});
+    const reviewData = { ...reviewBody,  reviewerId: this.authService.getUser().guid };
+    this.http.patch(this.apiUrl, reviewData, { headers, observe: 'response', withCredentials: true })
+      .subscribe(
+        (response) => {
+          console.log('ReviewService.patch', response);
+        },
+        (err) => console.error('ReviewService.patch', err)
+      );
+  }
+
+  /**
+   * Get a review from the API
+   * @param id review id
+   */
   get(id: number): Observable<any> {
     return this.http.get(this.apiUrl + id, httpOptions);
   }
 
+  /**
+   * Reviews from localStorage for demo
+   */
   getReviews(): Review[] {
     return JSON.parse(localStorage.getItem('reviews')) || [];
   }
 
   getById(id: number): Review {
     const reviews = this.getReviews();
-    return this.reviews.filter(review => review.id === id)[0];
+    return reviews.filter(review => review.id === id)[0];
   }
 
   getByMovieId(movieId: string): Observable<Review[]> {
-    const reviews = this.getReviews();
-    const results = reviews.filter(review => review.imdbId === movieId);
-    return of(results);
+    const token = sessionStorage.getItem('currentUser');
+    const headers = new HttpHeaders({Authorization: token, 'Content-Type': 'application/json'});
+    this.http.get<Review[]>(this.apiUrl + `?imdbid=${movieId}`, { headers, observe: 'response', withCredentials: true })
+      .subscribe(
+        (response) => {
+          this.reviews.next(response.body);
+        },
+        err => console.error('ReviewService.getByMovieId', err)
+      );
+    return this.reviews;
   }
 
   getByUserId(userId: string): Observable<Review[]> {
-    const reviews = this.getReviews();
-    return of(reviews.filter(review => review.reviewerId === userId));
+    const token = sessionStorage.getItem('currentUser');
+    const headers = new HttpHeaders({Authorization: token, 'Content-Type': 'application/json'});
+    this.http.get<Review[]>(this.apiUrl + `?imdbid=${userId}`, { headers, observe: 'response', withCredentials: true })
+      .subscribe(
+        (response) => {
+          this.reviews.next(response.body);
+        },
+        err => console.error('ReviewService.getByMovieId', err)
+      );
+    return this.reviews;
   }
 
   search(query: string) {
-    const results = this.reviews.filter((review) => review.reviewTitle.toLowerCase().includes(query));
+    // this.refresh();
+    const reviews = this.getReviews();
+    const results = reviews.filter((review) => review.reviewTitle.toLowerCase().includes(query));
     return of(results);
+  }
+
+  all(): Observable<any> {
+    return this.http.get<Review[]>(this.apiUrl, httpOptions);
+  }
+
+  refresh() {
+    this.all().subscribe(reviews => this.updateStorage(reviews));
   }
 }

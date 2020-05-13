@@ -3,6 +3,8 @@ import { Movie } from '../../models/movie';
 import { fadeInAnimation } from '../../animations/fade-in';
 import { MovieService } from '../../services/movie.service';
 import { ActivatedRoute } from '@angular/router';
+import { Review } from '../../models/review';
+import { ReviewsService } from '../../services/reviews.service';
 
 @Component({
   selector: 'movie-page',
@@ -15,9 +17,12 @@ export class MoviePageComponent implements OnInit {
    * Movie Page displays all details and comments for a movie.
    */
   movie: Movie;
+  reviews: Review[];
   private movieId: string;
 
-  constructor(private movieService: MovieService, private router: ActivatedRoute) { }
+  constructor(private movieService: MovieService,
+              private reviewService: ReviewsService,
+              private router: ActivatedRoute) { }
 
   ngOnInit() {
     // state comes from routerLink parameters on the template
@@ -27,5 +32,7 @@ export class MoviePageComponent implements OnInit {
     if (!this.movie) {
       this.movieService.get(this.movieId).subscribe(movie => this.movie = movie);
     }
+
+    this.reviewService.getByMovieId(this.movieId).subscribe(reviews => this.reviews = reviews);
   }
 }

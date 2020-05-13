@@ -48,11 +48,7 @@ export class ReviewFormComponent implements OnInit {
   create() {
     this.reviewForm.patchValue({ imdbId: this.imdbId });
     if (this.reviewForm.valid) {
-      this.reviewsService.create(this.reviewForm.value)
-        .subscribe(
-          (res) => console.log('ReviewForm.create', 'success', res),
-          (err) => console.error('ReviewForm.create', err)
-        );
+      this.reviewsService.create(this.reviewForm.value);
     } else {
       this.reviewError = 'There was a problem submitting your review, try again.';
       console.log('Review failed.');
