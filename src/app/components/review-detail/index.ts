@@ -18,4 +18,8 @@ export class ReviewDetailComponent implements OnInit {
     this.stars = Array.from(Array(this.review.stars)).map((x, i) => i ) || [];
   }
 
+  updateReview() {
+    // TODO: Users can update reviews they own.
+  }
+
 }

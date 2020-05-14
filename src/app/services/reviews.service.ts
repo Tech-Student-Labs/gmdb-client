@@ -18,6 +18,7 @@ export class ReviewsService {
   private apiUrl = env.apiUrl + api.ReviewsApi;
 
   constructor(private http: HttpClient, private authService: AuthService) {
+    localStorage.removeItem('reviews');
     this.reviews = new BehaviorSubject([]);
   }
 
