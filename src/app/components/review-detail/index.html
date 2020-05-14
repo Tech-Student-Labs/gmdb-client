@@ -1,7 +1,44 @@
-<div class="row media">
+<div class="row media p-4">
   <div class="media-body">
     <img *ngFor="let n of stars" src="assets/images/star32.png" class="mr-3" alt="star rating image">
     <h5 class="media-title">{{ review.reviewTitle }}</h5>
     <p class="media-text">{{ review.reviewText }}</p>
+
+    <div *ngIf="isCurrentUser() && isAuthorized">
+      <button *ngIf="!showForm; else reviewFormTemplate" class="btn btn-warning" (click)="toggleForm()">Edit Review</button>
+      <div *ngIf="reviewMsg" class="alert alert-success">
+        {{ reviewMsg }}
+      </div>
+    </div>
   </div>
 </div>
+
+<ng-template #reviewFormTemplate>
+  <form [formGroup]="reviewUpdateForm" (ngSubmit)="updateReview()" class="form col-md-6">
+    <!--    REVIEW TITLE INPUT
+  FormControls have names represented by the keys of the FormGroup.
+  Take a look at the controller to see how HTML here mirrors controls there.-->
+    <div class="form-group">
+      <label>Review Title:
+        <input [value]="review.reviewTitle" class="form-control" type="text" formControlName="reviewTitle" required>
+      </label>
+    </div>
+    <!--    REVIEW STARS INPUT -->
+    <div class="form-group">
+      <label>Stars:
+        <input [value]="review.stars" class="form-control" type="text" formControlName="stars" required>
+      </label>
+    </div>
+
+    <!--    REVIEW INPUT
+      FormControls have names represented by the keys of the FormGroup.
+      Take a look at the controller to see how HTML here mirrors controls there.-->
+    <div class="form-group">
+      <label>Change your review:
+        <input [value]="review.reviewText" class="form-control" type="text" formControlName="reviewText" required>
+      </label>
+    </div>
+    <br />
+    <input class="btn btn-primary" type="submit" value="Update">
+  </form>
+</ng-template>

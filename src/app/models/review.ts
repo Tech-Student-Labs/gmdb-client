@@ -1,5 +1,5 @@
 export class Review {
-  id: number;
+  reviewId: number;
   reviewerId: string;
   imdbId: string;
   movieId?: number;

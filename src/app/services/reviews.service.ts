@@ -48,7 +48,7 @@ export class ReviewsService {
     const token = sessionStorage.getItem('currentUser');
     const headers = new HttpHeaders({Authorization: token, 'Content-Type': 'application/json'});
     const reviewData = { ...reviewBody,  reviewerId: this.authService.getUser().guid };
-    this.http.patch(this.apiUrl, reviewData, { headers, observe: 'response', withCredentials: true })
+    this.http.patch(this.apiUrl + reviewData.reviewId, reviewData, { headers, observe: 'response', withCredentials: true })
       .subscribe(
         (response) => {
           console.log('ReviewService.patch', response);
@@ -74,11 +74,11 @@ export class ReviewsService {
 
   getById(id: number): Review {
     const reviews = this.getReviews();
-    return reviews.filter(review => review.id === id)[0];
+    return reviews.filter(review => review.reviewId === id)[0];
   }
 
   getByMovieId(movieId: string): Observable<Review[]> {
-    const token = sessionStorage.getItem('currentUser');
+    const token = sessionStorage.getItem('currentUser') || 'Bearer ';
     const headers = new HttpHeaders({Authorization: token, 'Content-Type': 'application/json'});
     this.http.get<Review[]>(this.apiUrl + `?imdbid=${movieId}`, { headers, observe: 'response', withCredentials: true })
       .subscribe(
